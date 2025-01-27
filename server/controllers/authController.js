@@ -75,4 +75,16 @@ const login = async (req, res) => {
     }
 }
 
-module.exports = {signup, login};
+const logout = async (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
+            return res.status(500).json({error: "Failed to logout user"});
+        }
+
+        res.clearCookie("qid", {httpOnly: true});
+
+        return res.status(200).json({message: "User logged out successfully"})
+    });
+}
+
+module.exports = {signup, login, logout};
