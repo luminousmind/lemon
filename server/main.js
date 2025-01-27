@@ -1,5 +1,6 @@
 const express = require("express");
-const session = requrie("express-session")
+const authRoutes = require("./routes/authRoutes")
+const session = require("express-session")
 const app = express();
 
 const PORT = process.env.PORT || 3000;
@@ -18,6 +19,8 @@ app.use(session({
     saveUninitialized: false,
     secure: process.env.NODE_ENV == "production"
 }));
+
+app.use("/api/auth", authRoutes);
 
 app.listen(PORT, () => {
     console.log("Server is running at", PORT);
