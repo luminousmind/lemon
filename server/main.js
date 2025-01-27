@@ -7,8 +7,10 @@ const PrismaSessionStore = require("./utils/prismaSessionStore");
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Configure CORS to accept requests
+app.use(cors({ origin: "http://127.0.0.1:5173", credentials: true}));
+
 // Middleware to parse HTTP responses
-app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 

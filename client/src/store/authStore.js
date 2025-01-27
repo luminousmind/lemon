@@ -3,6 +3,8 @@ import {create} from "zustand";
 
 const BASE_URL = "http://localhost:3000/api/auth";
 
+axios.defaults.withCredentials = true;
+
 // Define the Zustand store
 const useAuthStore = create((set) => ({
     user: null,
