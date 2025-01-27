@@ -1,8 +1,8 @@
 const express = require("express");
-const authRoutes = require("./routes/authRoutes")
 const session = require("express-session")
-const app = express();
+const authRoutes = require("./routes/authRoutes")
 
+const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware to parse HTTP responses
@@ -11,15 +11,18 @@ app.use(express.urlencoded({extended: true}));
 
 // Configuration for session middleware
 app.use(session({
+    name: "qid",
     secret: process.env.SESSION_SECRET,
-    cookie: {
-        maxAge: 1000 * 60 * 60 * 24
-    },
-    resave: true,
+    resave: false,
     saveUninitialized: false,
-    secure: process.env.NODE_ENV == "production"
+    cookie: {
+        httpOnly: true,
+        secure: process.env.NODE_ENV == "production",
+        maxAge: 1000 * 60 * 60 * 24 * 7 // 7 days
+    }
 }));
 
+// Server routes
 app.use("/api/auth", authRoutes);
 
 app.listen(PORT, () => {

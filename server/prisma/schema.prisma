@@ -13,3 +13,11 @@ model User {
   email    String @unique
   password String
 }
+
+model Session {
+  id        String   @id @default(cuid())
+  data      String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
