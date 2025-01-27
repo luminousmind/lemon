@@ -3,6 +3,7 @@ const session = require("express-session");
 const cors = require("cors");
 const authRoutes = require("./routes/authRoutes")
 const PrismaSessionStore = require("./utils/prismaSessionStore");
+const cleanupSessions = require("./utils/cleanupSessions");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -27,6 +28,10 @@ app.use(session({
         maxAge: 1000 * 60 * 60 * 24 * 7 // 7 days
     }
 }));
+
+setInterval(() => {
+    cleanupSessions();
+}, 1000 * 60 * 60 * 24); // Run cleanup every 24 hours
 
 // Server routes
 app.use("/api/auth", authRoutes);
