@@ -1,6 +1,7 @@
 const express = require("express");
 const session = require("express-session")
 const authRoutes = require("./routes/authRoutes")
+const PrismaSessionStore = require("./utils/prismaSessionStore");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -15,6 +16,7 @@ app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
+    store: new PrismaSessionStore(),
     cookie: {
         httpOnly: true,
         secure: process.env.NODE_ENV == "production",
