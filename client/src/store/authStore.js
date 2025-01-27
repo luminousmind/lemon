@@ -5,13 +5,11 @@ const BASE_URL = "http://localhost:3000/api/auth";
 
 axios.defaults.withCredentials = true;
 
-// Define the Zustand store
 const useAuthStore = create((set) => ({
     user: null,
     isAuthenticated: false,
     error: null,
 
-    // Sign up action
     signup: async (username, email, password) => {
         try {
             const response = await axios.post(`${BASE_URL}/signup`, {
