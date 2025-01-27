@@ -5,6 +5,8 @@ const prisma = require("../prisma/pool");
 const signup = async (req, res) => {
     const {username, email, password} = req.body;
 
+    console.log("Sign up:", username, email, password);
+
     // TODO: add sign up validation
 
     // Check if all fields are provided in request body

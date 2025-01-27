@@ -1,5 +1,6 @@
 const express = require("express");
-const session = require("express-session")
+const session = require("express-session");
+const cors = require("cors");
 const authRoutes = require("./routes/authRoutes")
 const PrismaSessionStore = require("./utils/prismaSessionStore");
 
@@ -7,6 +8,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware to parse HTTP responses
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
